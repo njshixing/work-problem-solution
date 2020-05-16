@@ -1,0 +1,6 @@
+server:
+  port: 1234
+
+logging:
+  level:
+    cn.sx: info
