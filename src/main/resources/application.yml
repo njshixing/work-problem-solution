@@ -4,3 +4,9 @@ server:
 logging:
   level:
     cn.raulism: info
+
+
+spring:
+  mvc:
+    favicon:
+      enabled: false
