@@ -10,14 +10,50 @@ import org.kie.api.runtime.KieContainer;
 public class RuleLoadUtils {
     public static void loadForRule() {
         KieUtils.initAndNotClear();
-        String rule = "package rules;\n" +
+        String rule1 = "package rules;\n" +
                 "import cn.raulism.drools.model.Address;\n" +
                 "import cn.raulism.drools.model.fact.AddressCheckResult;\n" +
                 "import cn.raulism.drools.model.DrlFact;\n" +
                 "\n" +
                 "global java.util.List list\n" +
                 "\n" +
+                "rule \"Postcode should be filled with exactly 4 numbers\"\n" +
+                "    no-loop true\n" +
+                "\tactivation-group \"rule\"\n" +
+                "    when\n" +
+                "        address : Address(null != facts,facts.size > 0)\n" +
+                "    then\n" +
+                "        for(DrlFact fact : address.getFacts()){\n" +
+                "            AddressCheckResult result = new AddressCheckResult();\n" +
+                "            fact.setResultDesc(fact.getName());\n" +
+                "            list.add(fact);\n" +
+                "        }\n" +
+                "        System.out.println(\"规则中打印日志1：校验通过!\");\n" +
+                "end\n" +
+                "\n" +
                 "rule \"Postcode should be filled with exactly 5 numbers\"\n" +
+                "    no-loop true\n" +
+                "    activation-group \"rule\"\n" +
+                "    when\n" +
+                "        address : Address(null != facts,facts.size > 0)\n" +
+                "    then\n" +
+                "        for(DrlFact fact : address.getFacts()){\n" +
+                "            AddressCheckResult result = new AddressCheckResult();\n" +
+                "            fact.setResultDesc(fact.getName());\n" +
+                "            list.add(fact);\n" +
+                "        }\n" +
+                "        System.out.println(\"规则中打印日志2：校验通过!\");\n" +
+                "end";
+        String rule2 = "package rules;\n" +
+                "import cn.raulism.drools.model.Address;\n" +
+                "import cn.raulism.drools.model.fact.AddressCheckResult;\n" +
+                "import cn.raulism.drools.model.DrlFact;\n" +
+                "\n" +
+                "global java.util.List list\n" +
+                "\n" +
+                "rule \"Postcode should be filled with exactly 6 numbers\"\n" +
+                "    no-loop true\n" +
+                "    activation-group \"rule1\"\n" +
                 "    when\n" +
                 "        address : Address(null != facts,facts.size > 0)\n" +
                 "    then\n" +
@@ -26,13 +62,14 @@ public class RuleLoadUtils {
                 "            fact.setResultDesc(fact.getName()+\"====\");\n" +
                 "            list.add(fact);\n" +
                 "        }\n" +
-                "\t\tSystem.out.println(\"规则中打印日志：校验通过!\");\n" +
+                "\t\tSystem.out.println(\"规则中打印日志4：校验通过!\");\n" +
                 "end";
         KieFileSystem kfs = KieUtils.getKieFileSystem();
         KieServices ks = KieUtils.getKieServices();
         KieRepository kr = KieUtils.getKieRepository();
 
-        kfs.write("src/main/resources/rules/R001.drl", rule);
+        kfs.write("src/main/resources/rules/R001.drl", rule1);
+        kfs.write("src/main/resources/rules/R002.drl", rule2);
 
         // 将KieFileSystem加入到KieBuilder
         KieBuilder kb = ks.newKieBuilder(kfs);
