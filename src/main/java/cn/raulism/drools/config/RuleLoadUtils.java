@@ -14,6 +14,7 @@ public class RuleLoadUtils {
                 "import cn.raulism.drools.model.Address;\n" +
                 "import cn.raulism.drools.model.fact.AddressCheckResult;\n" +
                 "import cn.raulism.drools.model.DrlFact;\n" +
+                "import java.util.Map;\n" +
                 "\n" +
                 "global java.util.List list\n" +
                 "\n" +
@@ -21,28 +22,14 @@ public class RuleLoadUtils {
                 "    no-loop true\n" +
                 "\tactivation-group \"rule\"\n" +
                 "    when\n" +
-                "        address : Address(null != facts,facts.size > 0)\n" +
+                "        $address : Address(null != facts,facts.size > 0,factMap != null,factMap[\"1\"] != null)\n" +
                 "    then\n" +
-                "        for(DrlFact fact : address.getFacts()){\n" +
+                "        for(DrlFact fact : $address.getFacts()){\n" +
                 "            AddressCheckResult result = new AddressCheckResult();\n" +
                 "            fact.setResultDesc(fact.getName());\n" +
                 "            list.add(fact);\n" +
                 "        }\n" +
                 "        System.out.println(\"规则中打印日志1：校验通过!\");\n" +
-                "end\n" +
-                "\n" +
-                "rule \"Postcode should be filled with exactly 5 numbers\"\n" +
-                "    no-loop true\n" +
-                "    activation-group \"rule\"\n" +
-                "    when\n" +
-                "        address : Address(null != facts,facts.size > 0)\n" +
-                "    then\n" +
-                "        for(DrlFact fact : address.getFacts()){\n" +
-                "            AddressCheckResult result = new AddressCheckResult();\n" +
-                "            fact.setResultDesc(fact.getName());\n" +
-                "            list.add(fact);\n" +
-                "        }\n" +
-                "        System.out.println(\"规则中打印日志2：校验通过!\");\n" +
                 "end";
         String rule2 = "package rules;\n" +
                 "import cn.raulism.drools.model.Address;\n" +

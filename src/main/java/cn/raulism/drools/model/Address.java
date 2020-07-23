@@ -4,6 +4,7 @@ package cn.raulism.drools.model;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class Address {
@@ -15,5 +16,7 @@ public class Address {
     private String state;
 
     private List<DrlFact> facts;
+
+    private Map<String, DrlFact> factMap;
 
 }
