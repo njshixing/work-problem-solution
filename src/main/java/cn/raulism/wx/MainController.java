@@ -9,7 +9,6 @@ import weixin.popular.api.MenuAPI;
 import weixin.popular.api.MessageAPI;
 import weixin.popular.api.TokenAPI;
 import weixin.popular.bean.BaseResult;
-import weixin.popular.bean.message.massmessage.MassTextMessage;
 import weixin.popular.bean.message.message.Message;
 import weixin.popular.bean.message.message.TextMessage;
 import weixin.popular.bean.token.Token;
@@ -17,7 +16,6 @@ import weixin.popular.bean.user.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashSet;
 import java.util.Map;
 
 
